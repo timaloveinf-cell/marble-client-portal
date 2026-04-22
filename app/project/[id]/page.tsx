@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,6 +26,13 @@ type ProjectData = {
   photos: Array<{ url: string; name?: string }>;
   docs: Array<{ url: string; name?: string }>;
 };
+
+class ProjectNotFoundError extends Error {
+  constructor(contractId: string) {
+    super(`Project not found for contract: ${contractId}`);
+    this.name = "ProjectNotFoundError";
+  }
+}
 
 function getPlainTextFromTitleProperty(prop: unknown): string | undefined {
   if (!prop || typeof prop !== "object") return undefined;
@@ -111,7 +119,7 @@ async function fetchProjectData(contractIdFromUrl: string): Promise<ProjectData>
   });
 
   const page = response.results?.[0] as any | undefined;
-  if (!page) throw new Error(`Notion record not found for ID договора: "${contractIdFromUrl}"`);
+  if (!page) throw new ProjectNotFoundError(contractIdFromUrl);
 
   const props = page.properties ?? {};
 
@@ -125,8 +133,6 @@ async function fetchProjectData(contractIdFromUrl: string): Promise<ProjectData>
   const address =
     getPlainTextFromRichTextProperty(props["Адрес объекта"]) ??
     getPlainTextFromTitleProperty(props["Адрес объекта"]);
-
-  console.log("Сырые данные Фото1:", props["Фото1"]);
 
   const photoColumns = ["Фото1", "Фото2", "Фото3", "Фото4", "Фото5"] as const;
   const photos = photoColumns.flatMap((col) => getFiles(props[col]));
@@ -255,8 +261,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         key={`${file.url}-${idx}`}
                         className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_20px_60px_rgba(0,0,0,0.55)]"
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img alt={label} src={file.url} className="w-full object-cover" />
+                        <Image
+                          alt={label}
+                          src={file.url}
+                          width={1600}
+                          height={1200}
+                          sizes="(max-width: 768px) 100vw, 672px"
+                          className="h-auto w-full object-cover"
+                        />
                         <div className="border-t border-white/10 px-4 py-3 text-xs text-zinc-400">
                           {label}
                         </div>
@@ -335,6 +347,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </main>
     );
   } catch (err) {
+    if (err instanceof ProjectNotFoundError) {
+      return (
+        <main className="px-6 py-14">
+          <div className="mx-auto w-full max-w-5xl">
+            <header className="mb-6">
+              <div className="text-xs font-medium uppercase tracking-wider text-zinc-500">Проект</div>
+              <h1 className="mt-2 font-serif text-4xl leading-tight tracking-tight text-zinc-50">
+                {contractId}
+              </h1>
+            </header>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur">
+              <div className="font-serif text-2xl tracking-tight text-zinc-50">Договор не найден</div>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                Пожалуйста, проверьте правильность ввода или свяжитесь с менеджером.
+              </p>
+              <a
+                href="/"
+                className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-gold-500 px-5 font-serif text-sm font-semibold tracking-wide text-black shadow-glow transition hover:bg-gold-600"
+              >
+                Вернуться к поиску
+              </a>
+            </div>
+          </div>
+        </main>
+      );
+    }
+
     const message =
       err instanceof Error ? `${err.name}: ${err.message}\n${err.stack ?? ""}` : String(err);
 
