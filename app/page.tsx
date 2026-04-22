@@ -1,7 +1,7 @@
 import { ContractLookup } from "@/components/ContractLookup";
 import Image from "next/image";
 
-export default function HomePage() {
+export default function HomePage(): JSX.Element {
   return (
     <main className="min-h-dvh">
       <section className="relative min-h-dvh">
@@ -10,6 +10,7 @@ export default function HomePage() {
           alt=""
           fill
           priority
+          unoptimized
           sizes="100vw"
           className="object-cover"
         />
