@@ -379,7 +379,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <Link
                 href="/"
                 className="mt-6 inline-flex h-11 items-center justify-center rounded-xl border border-gold-500/50 bg-transparent px-6 font-serif text-sm font-semibold tracking-wide text-zinc-100 transition hover:border-gold-500 hover:bg-gold-500/10"
-                
               >
                 Вернуться к поиску
               </Link>
