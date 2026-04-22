@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -375,12 +376,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
                 Проверьте номер или свяжитесь с поддержкой.
               </p>
-              <a
+              <Link
                 href="/"
                 className="mt-6 inline-flex h-11 items-center justify-center rounded-xl border border-gold-500/50 bg-transparent px-6 font-serif text-sm font-semibold tracking-wide text-zinc-100 transition hover:border-gold-500 hover:bg-gold-500/10"
               >
                 Вернуться к поиску
-              </a>
+              </Link>
             </div>
           </div>
         </main>
