@@ -9,18 +9,23 @@ export default {
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"]
       },
       colors: {
-        ink: {
-          950: "#07070A",
-          900: "#0B0B10",
-          800: "#12121A"
+        carbon: {
+          950: "#0F0F0F",
+          900: "#121212",
+          800: "#171717"
         },
         gold: {
           500: "#D4AF37",
           600: "#B8922E"
+        },
+        silver: {
+          400: "#B9B9B9",
+          500: "#9A9A9A"
         }
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(212,175,55,0.25), 0 8px 30px rgba(0,0,0,0.55)"
+        glow: "0 0 0 1px rgba(212,175,55,0.25)",
+        hairline: "0 0 0 1px rgba(255,255,255,0.10)"
       }
     }
   },

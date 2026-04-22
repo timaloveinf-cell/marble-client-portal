@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,14 +16,15 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Marble — поиск договора",
-  description: "Минималистичный поиск договора для компании по укладке мрамора."
+  title: "DECORMARMI — кабинет клиента",
+  description: "Клиентский портал для проектов по укладке мрамора."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-dvh text-zinc-100 antialiased">
+      <body className="min-h-dvh bg-carbon-950 font-sans text-zinc-200 antialiased">
+        <SiteHeader />
         {children}
       </body>
     </html>

@@ -151,7 +151,7 @@ async function fetchProjectData(contractIdFromUrl: string): Promise<ProjectData>
 
 function ProgressBar({ currentIndex }: { currentIndex: number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur">
       <div className="grid grid-cols-4 gap-2 sm:gap-3">
         {STAGES.map((stage, idx) => {
           const isCurrent = idx === currentIndex;
@@ -210,27 +210,37 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     const data = await fetchProjectData(contractId);
 
     return (
-      <main className="px-6 py-14">
-        <div className="mx-auto w-full max-w-5xl">
-          <header className="mb-8">
-            <div className="text-xs font-medium uppercase tracking-wider text-zinc-500">Проект</div>
-            <h1 className="mt-2 font-serif text-4xl leading-tight tracking-tight text-zinc-50">
+      <main className="px-6 py-12 sm:py-16">
+        <div className="mx-auto w-full max-w-6xl">
+          <header className="mb-10">
+            <div className="text-[11px] font-medium uppercase tracking-[0.28em] text-zinc-500">
+              PROJECT
+            </div>
+            <h1 className="mt-4 font-serif text-3xl leading-tight tracking-tight text-zinc-50 sm:text-5xl">
               {data.contractId}
             </h1>
           </header>
 
-          <section className="mb-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur">
-            <div className="grid gap-3 sm:grid-cols-2">
+          <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur">
+            <div className="grid gap-6 sm:grid-cols-2">
               <div>
-                <div className="text-xs font-medium uppercase tracking-wider text-zinc-500">Заказчик</div>
-                <div className="mt-1 text-sm text-zinc-100">{data.customer ?? "—"}</div>
+                <div className="text-[11px] font-medium uppercase tracking-[0.28em] text-zinc-500">
+                  Заказчик
+                </div>
+                <div className="mt-2 text-sm leading-relaxed text-zinc-100">
+                  {data.customer ?? "—"}
+                </div>
               </div>
               <div>
-                <div className="text-xs font-medium uppercase tracking-wider text-zinc-500">Адрес</div>
-                <div className="mt-1 text-sm text-zinc-100">{data.address ?? "—"}</div>
+                <div className="text-[11px] font-medium uppercase tracking-[0.28em] text-zinc-500">
+                  Адрес
+                </div>
+                <div className="mt-2 text-sm leading-relaxed text-zinc-100">
+                  {data.address ?? "—"}
+                </div>
               </div>
             </div>
-            <div className="mt-4 text-xs text-zinc-500">
+            <div className="mt-6 text-xs tracking-wide text-zinc-500">
               Статус строительства:{" "}
               <span className="font-medium text-zinc-200">{data.statusName ?? "—"}</span>
             </div>
@@ -259,7 +269,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     return (
                       <div
                         key={`${file.url}-${idx}`}
-                        className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_20px_60px_rgba(0,0,0,0.55)]"
+                        className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition hover:border-white/20"
                       >
                         <Image
                           alt={label}
@@ -283,7 +293,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       href={file.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] transition hover:border-gold-500/40"
+                      className="group rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-gold-500/40"
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div className="min-w-0">
@@ -292,7 +302,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           </div>
                           <div className="mt-1 truncate text-xs text-zinc-500">{label}</div>
                         </div>
-                        <div className="shrink-0 rounded-xl border border-white/10 bg-ink-900/50 px-3 py-2 text-xs font-semibold text-gold-500 transition group-hover:border-gold-500/40">
+                        <div className="shrink-0 rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs font-semibold text-gold-500 transition group-hover:border-gold-500/40">
                           Открыть
                         </div>
                       </div>
@@ -323,18 +333,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       href={doc.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 shadow-[0_20px_60px_rgba(0,0,0,0.55)] transition hover:border-gold-500/40"
+                      className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-4 transition hover:border-gold-500/40"
                     >
                       <div className="flex min-w-0 items-center gap-3">
-                        <div className="grid size-10 place-items-center rounded-xl border border-white/10 bg-ink-900/50 text-gold-500">
-                          <span aria-hidden="true">📄</span>
+                        <div className="grid size-10 place-items-center rounded-xl border border-white/10 bg-black/20 text-gold-500">
+                          <span aria-hidden="true">DOC</span>
                         </div>
                         <div className="min-w-0">
                           <div className="truncate text-sm font-medium text-zinc-100">{name}</div>
                           <div className="mt-0.5 truncate text-xs text-zinc-500">{doc.url}</div>
                         </div>
                       </div>
-                      <div className="shrink-0 rounded-xl border border-white/10 bg-ink-900/50 px-3 py-2 text-xs font-semibold text-gold-500">
+                      <div className="shrink-0 rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs font-semibold text-gold-500">
                         Открыть
                       </div>
                     </a>
@@ -358,14 +368,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </h1>
             </header>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur">
-              <div className="font-serif text-2xl tracking-tight text-zinc-50">Договор не найден</div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur">
+              <div className="font-serif text-2xl tracking-tight text-zinc-50">
+                Договор <span className="text-gold-500">{contractId}</span> не найден в базе
+              </div>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                Пожалуйста, проверьте правильность ввода или свяжитесь с менеджером.
+                Проверьте номер или свяжитесь с поддержкой.
               </p>
               <a
                 href="/"
-                className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-gold-500 px-5 font-serif text-sm font-semibold tracking-wide text-black shadow-glow transition hover:bg-gold-600"
+                className="mt-6 inline-flex h-11 items-center justify-center rounded-xl border border-gold-500/50 bg-transparent px-6 font-serif text-sm font-semibold tracking-wide text-zinc-100 transition hover:border-gold-500 hover:bg-gold-500/10"
               >
                 Вернуться к поиску
               </a>
