@@ -16,8 +16,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "DECORMARMI — кабинет клиента",
-  description: "Клиентский портал для проектов по укладке мрамора."
+  title: "DECORMARMI — Портал клиента",
+  description:
+    "Эксклюзивная укладка натурального камня. Проверка статуса вашего проекта и документации."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
